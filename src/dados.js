@@ -6,14 +6,15 @@ export const brl = (v) => v.toLocaleString("pt-BR", { style: "currency", currenc
 const T = { u: "Urbano · 30 min", e: "Estrada · 60 min", p: "Pista · 90 min" };
 
 // id, nome, tipo, cv, 0-100, preço, matiz, ano, motor, torque(Nm), vmax, câmbio, tração, cores, testes(u/e/p), destaque
+// O "1" no final da linha faz o carro aparecer em destaque na página inicial
 const L = [
-  ["ferrari-296", "Ferrari 296 GTB", "Supercarro", 830, 2.9, 4290000, 355, 2025, "V6 3.0 biturbo híbrido", 740, 330, "Automático 8 marchas", "Traseira", ["Rosso Corsa", "Preto", "Branco"], "uep", 1],
+  ["ferrari-296", "Ferrari 296 GTB", "Supercarro", 830, 2.9, 4290000, 355, 2025, "V6 3.0 biturbo híbrido", 740, 330, "Automático 8 marchas", "Traseira", ["Rosso Corsa", "Preto", "Branco"], "uep"],
   ["lamborghini-huracan", "Lamborghini Huracán", "Supercarro", 640, 3.2, 3650000, 50, 2024, "V10 5.2 aspirado", 565, 325, "Automático 7 marchas", "Traseira", ["Giallo", "Verde", "Preto"], "up", 1],
-  ["mclaren-720s", "McLaren 720S Spider", "Conversível", 720, 2.9, 4100000, 25, 2023, "V8 4.0 biturbo", 770, 341, "Automático 7 marchas", "Traseira", ["Laranja", "Cinza"], "ue", 1],
+  ["mclaren-720s", "McLaren 720S Spider", "Conversível", 720, 2.9, 4100000, 25, 2023, "V8 4.0 biturbo", 770, 341, "Automático 7 marchas", "Traseira", ["Laranja", "Cinza"], "ue"],
   ["porsche-911-gt3", "Porsche 911 GT3", "Coupé", 510, 3.4, 2490000, 210, 2024, "Boxer 4.0 aspirado", 470, 318, "PDK 7 marchas", "Traseira", ["Azul Gentian", "Prata", "Branco"], "uep", 1],
   ["aston-martin-vantage", "Aston Martin Vantage", "Coupé", 665, 3.5, 2790000, 150, 2024, "V8 4.0 biturbo", 800, 325, "Automático 8 marchas", "Traseira", ["Verde Racing", "Preto", "Prata"], "uep"],
   ["maserati-mc20", "Maserati MC20 Cielo", "Conversível", 630, 3.0, 3380000, 230, 2024, "V6 3.0 biturbo", 730, 325, "Automático 8 marchas", "Traseira", ["Azul", "Branco"], "ue"],
-  ["ferrari-roma", "Ferrari Roma", "Coupé", 620, 3.4, 2650000, 0, 2023, "V8 3.9 biturbo", 760, 320, "Automático 8 marchas", "Traseira", ["Rosso", "Cinza", "Preto"], "ue"],
+  ["ferrari-roma", "Ferrari Roma", "Coupé", 620, 3.4, 2650000, 0, 2023, "V8 3.9 biturbo", 760, 320, "Automático 8 marchas", "Traseira", ["Rosso", "Cinza", "Preto"], "ue", 1],
   ["lamborghini-urus", "Lamborghini Urus", "SUV", 666, 3.3, 3300000, 120, 2024, "V8 4.0 biturbo", 850, 305, "Automático 8 marchas", "Integral", ["Verde", "Preto", "Laranja"], "ue"],
   ["porsche-taycan", "Porsche Taycan Turbo S", "Elétrico", 761, 2.4, 1650000, 185, 2024, "Dois motores elétricos", 1050, 260, "Automático 2 marchas", "Integral", ["Azul", "Prata", "Preto"], "ue"],
   ["audi-r8", "Audi R8 V10 Performance", "Supercarro", 620, 3.1, 1790000, 270, 2023, "V10 5.2 aspirado", 580, 331, "S tronic 7 marchas", "Integral", ["Cinza Daytona", "Vermelho", "Branco"], "uep"],
@@ -30,7 +31,7 @@ const L = [
   ["koenigsegg-jesko", "Koenigsegg Jesko", "Hipercarro", 1600, 2.5, 16500000, 25, 2024, "V8 5.0 biturbo", 1500, 480, "Automático 9 marchas", "Traseira", ["Preto Carbono", "Branco", "Laranja"], "up", 1],
   ["koenigsegg-gemera", "Koenigsegg Gemera", "Hipercarro", 1700, 1.9, 11000000, 200, 2024, "3 cilindros 2.0 biturbo híbrido", 3500, 400, "Direct Drive", "Integral", ["Cinza", "Azul", "Branco"], "ue"],
   ["bugatti-chiron", "Bugatti Chiron", "Hipercarro", 1500, 2.4, 16000000, 215, 2023, "W16 8.0 quadriturbo", 1600, 420, "Automático 7 marchas", "Integral", ["Azul Bugatti", "Preto", "Vermelho"], "ue", 1],
-  ["pagani-huayra", "Pagani Huayra", "Hipercarro", 730, 2.8, 17500000, 45, 2022, "V12 6.0 biturbo", 1000, 370, "Sequencial 7 marchas", "Traseira", ["Prata", "Preto", "Azul"], "ue"],
+  ["pagani-huayra", "Pagani Huayra", "Hipercarro", 730, 2.8, 17500000, 45, 2022, "V12 6.0 biturbo", 1000, 370, "Sequencial 7 marchas", "Traseira", ["Prata", "Preto", "Azul"], "ue", 1],
   ["rimac-nevera", "Rimac Nevera", "Elétrico", 1914, 2.0, 13500000, 180, 2024, "Quatro motores elétricos", 2360, 412, "Automático 1 marcha", "Integral", ["Branco", "Preto", "Azul"], "ue"],
   ["ferrari-sf90", "Ferrari SF90 Stradale", "Supercarro", 1000, 2.5, 5600000, 355, 2024, "V8 4.0 biturbo híbrido", 800, 340, "Automático 8 marchas", "Integral", ["Rosso Corsa", "Preto", "Amarelo"], "uep"],
   ["lamborghini-revuelto", "Lamborghini Revuelto", "Supercarro", 1015, 2.5, 5400000, 130, 2024, "V12 6.5 híbrido", 725, 350, "Automático 8 marchas", "Integral", ["Laranja", "Verde", "Preto"], "ue"],

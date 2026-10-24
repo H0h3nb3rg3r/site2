@@ -49,9 +49,20 @@ function tilt() {
   });
 }
 
-// Mostra só os destaques da loja
+// Ordem dos destaques na página inicial (use o id de cada carro)
+const ORDEM_DESTAQUES = [
+  "pagani-huayra",
+  "koenigsegg-jesko",
+  "bugatti-chiron",
+  "lamborghini-huracan",
+  "porsche-911-gt3",
+  "ferrari-roma",
+];
+
+// Mostra só os destaques da loja, na ordem acima
 function render() {
-  const destaques = cars.filter((c) => c.destaque);
+  const pos = (c) => (ORDEM_DESTAQUES.includes(c.id) ? ORDEM_DESTAQUES.indexOf(c.id) : 99);
+  const destaques = cars.filter((c) => c.destaque).sort((a, b) => pos(a) - pos(b));
   $("#grid").innerHTML = (destaques.length ? destaques : cars.slice(0, 4)).map((c) => cardHTML(c, true)).join("");
   $("#carroSel").innerHTML = `<option value="">Escolha o carro</option>` + cars.map((c) => `<option>${c.nome}</option>`).join("");
   tilt();
