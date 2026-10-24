@@ -12,6 +12,12 @@ service cloud.firestore {
       allow read: if true;
     }
 
+    match /pedidos/{id} {
+        allow create: if request.resource.data.keys().hasAll(['carro', 'nome', 'cpf', 'entrega', 'pagamento'])
+        && request.resource.data.nome is string
+        && request.resource.data.nome.size() < 120;
+    }
+
     // Acrescente aqui a regra do formulário de contato que você já tinha
   }
 }
