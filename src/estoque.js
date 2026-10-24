@@ -6,20 +6,33 @@ const $ = (s) => document.querySelector(s);
 let cars = [];
 let filtro = "todos";
 
-// Monta os botões de categoria a partir dos carros disponíveis
+// Monta os botões de categoria e a lista de marcas a partir dos carros disponíveis
 function montarFiltros() {
   const tipos = [...new Set(cars.map((c) => c.tipo))].sort();
   $("#filters").innerHTML =
     `<button class="on" data-f="todos">Todos</button>` +
     tipos.map((t) => `<button data-f="${t}">${t}</button>`).join("");
+
+  const marcas = [...new Set(cars.map((c) => c.marca))].sort((a, b) => a.localeCompare(b));
+  $("#marca").innerHTML =
+    `<option value="">Todas as marcas</option>` +
+    marcas.map((m) => `<option value="${m}">${m} (${cars.filter((c) => c.marca === m).length})</option>`).join("");
+
+  // Permite abrir direto numa marca: /estoque.html?marca=Ferrari
+  const pre = new URLSearchParams(location.search).get("marca");
+  if (pre && marcas.includes(pre)) $("#marca").value = pre;
 }
 
 function render() {
   const termo = $("#busca").value.trim().toLowerCase();
   const ordem = $("#ordem").value;
+  const marca = $("#marca").value;
 
   let lista = cars.filter(
-    (c) => (filtro === "todos" || c.tipo === filtro) && c.nome.toLowerCase().includes(termo)
+    (c) =>
+      (filtro === "todos" || c.tipo === filtro) &&
+      (!marca || c.marca === marca) &&
+      c.nome.toLowerCase().includes(termo)
   );
   if (ordem === "menor") lista.sort((a, b) => a.preco - b.preco);
   if (ordem === "maior") lista.sort((a, b) => b.preco - a.preco);
@@ -38,6 +51,7 @@ $("#filters").addEventListener("click", (e) => {
   render();
 });
 $("#busca").addEventListener("input", render);
+$("#marca").addEventListener("change", render);
 $("#ordem").addEventListener("change", render);
 
 irParaCarro("#grid");

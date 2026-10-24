@@ -21,6 +21,18 @@ const carros = [
   ["corvette-z06", "Chevrolet Corvette Z06"],
   ["mercedes-amg-sl63", "Mercedes-AMG SL 63"],
   ["bmw-x5m", "BMW X5 M Competition"],
+  ["koenigsegg-jesko", "Koenigsegg Jesko"],
+  ["koenigsegg-gemera", "Koenigsegg Gemera"],
+  ["bugatti-chiron", "Bugatti Chiron"],
+  ["pagani-huayra", "Pagani Huayra"],
+  ["rimac-nevera", "Rimac Nevera"],
+  ["ferrari-sf90", "Ferrari SF90 Stradale"],
+  ["lamborghini-revuelto", "Lamborghini Revuelto"],
+  ["mclaren-765lt", "McLaren 765LT"],
+  ["aston-martin-db12", "Aston Martin DB12"],
+  ["rolls-royce-spectre", "Rolls-Royce Spectre"],
+  ["lotus-emira", "Lotus Emira"],
+  ["ford-gt", "Ford GT"],
 ];
 
 const pasta = "public/carros";

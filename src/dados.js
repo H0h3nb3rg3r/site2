@@ -27,6 +27,18 @@ const L = [
   ["corvette-z06", "Chevrolet Corvette Z06", "Supercarro", 679, 2.6, 1350000, 45, 2024, "V8 5.5 aspirado", 623, 315, "Automático 8 marchas", "Traseira", ["Amarelo", "Preto", "Azul"], "uep"],
   ["mercedes-amg-sl63", "Mercedes-AMG SL 63", "Conversível", 585, 3.6, 1950000, 300, 2024, "V8 4.0 biturbo", 800, 315, "Automático 9 marchas", "Integral", ["Prata", "Preto", "Branco"], "ue"],
   ["bmw-x5m", "BMW X5 M Competition", "SUV", 625, 3.8, 1200000, 215, 2024, "V8 4.4 biturbo", 750, 290, "Automático 8 marchas", "Integral", ["Preto", "Azul Marina", "Branco"], "ue"],
+  ["koenigsegg-jesko", "Koenigsegg Jesko", "Hipercarro", 1600, 2.5, 16500000, 25, 2024, "V8 5.0 biturbo", 1500, 480, "Automático 9 marchas", "Traseira", ["Preto Carbono", "Branco", "Laranja"], "up", 1],
+  ["koenigsegg-gemera", "Koenigsegg Gemera", "Hipercarro", 1700, 1.9, 11000000, 200, 2024, "3 cilindros 2.0 biturbo híbrido", 3500, 400, "Direct Drive", "Integral", ["Cinza", "Azul", "Branco"], "ue"],
+  ["bugatti-chiron", "Bugatti Chiron", "Hipercarro", 1500, 2.4, 16000000, 215, 2023, "W16 8.0 quadriturbo", 1600, 420, "Automático 7 marchas", "Integral", ["Azul Bugatti", "Preto", "Vermelho"], "ue", 1],
+  ["pagani-huayra", "Pagani Huayra", "Hipercarro", 730, 2.8, 17500000, 45, 2022, "V12 6.0 biturbo", 1000, 370, "Sequencial 7 marchas", "Traseira", ["Prata", "Preto", "Azul"], "ue"],
+  ["rimac-nevera", "Rimac Nevera", "Elétrico", 1914, 2.0, 13500000, 180, 2024, "Quatro motores elétricos", 2360, 412, "Automático 1 marcha", "Integral", ["Branco", "Preto", "Azul"], "ue"],
+  ["ferrari-sf90", "Ferrari SF90 Stradale", "Supercarro", 1000, 2.5, 5600000, 355, 2024, "V8 4.0 biturbo híbrido", 800, 340, "Automático 8 marchas", "Integral", ["Rosso Corsa", "Preto", "Amarelo"], "uep"],
+  ["lamborghini-revuelto", "Lamborghini Revuelto", "Supercarro", 1015, 2.5, 5400000, 130, 2024, "V12 6.5 híbrido", 725, 350, "Automático 8 marchas", "Integral", ["Laranja", "Verde", "Preto"], "ue"],
+  ["mclaren-765lt", "McLaren 765LT", "Supercarro", 765, 2.8, 4800000, 35, 2023, "V8 4.0 biturbo", 800, 330, "Automático 7 marchas", "Traseira", ["Laranja", "Cinza", "Preto"], "up"],
+  ["aston-martin-db12", "Aston Martin DB12", "Coupé", 680, 3.6, 3300000, 150, 2024, "V8 4.0 biturbo", 800, 325, "Automático 8 marchas", "Traseira", ["Verde Racing", "Cinza", "Preto"], "uep"],
+  ["rolls-royce-spectre", "Rolls-Royce Spectre", "Elétrico", 584, 4.5, 3900000, 250, 2024, "Dois motores elétricos", 900, 250, "Automático 1 marcha", "Integral", ["Preto", "Branco", "Azul"], "ue"],
+  ["lotus-emira", "Lotus Emira", "Coupé", 405, 4.3, 1100000, 60, 2024, "V6 3.5 supercharged", 420, 290, "Automático 6 marchas", "Traseira", ["Amarelo", "Verde", "Cinza"], "uep"],
+  ["ford-gt", "Ford GT", "Supercarro", 647, 3.0, 3700000, 215, 2022, "V6 3.5 biturbo", 746, 348, "Automático 7 marchas", "Traseira", ["Azul", "Branco", "Preto"], "ue"],
 ];
 
 const base = L.map(([id, nome, tipo, cv, s, preco, h, ano, motor, nm, vmax, cambio, tracao, cores, t, destaque]) => ({
@@ -35,10 +47,16 @@ const base = L.map(([id, nome, tipo, cv, s, preco, h, ano, motor, nm, vmax, camb
   destaque: !!destaque,
 }));
 
+// Marcas (ordem importa: nomes compostos primeiro). Carros novos do Firestore
+// podem ter o campo "marca"; se não tiver, ela é descoberta pelo nome.
+const MARCAS = ["Aston Martin", "Mercedes-AMG", "Rolls-Royce", "Lamborghini", "Koenigsegg", "Maserati", "McLaren", "Porsche", "Ferrari", "Bentley", "Bugatti", "Pagani", "Chevrolet", "Nissan", "Rimac", "Lotus", "Audi", "BMW", "Ford"];
+const marcaDe = (nome) => MARCAS.find((m) => nome.startsWith(m)) || nome.split(" ")[0];
+
 // Completa campos que faltarem (ex.: carros cadastrados no Firestore)
 const pronto = (c) => ({
   h: 355, tipo: "Coupé", ano: 2024, cores: ["Consulte"], testes: [T.u, T.e],
   ...c,
+  marca: c.marca || marcaDe(c.nome),
   img: c.img || `/carros/${c.id}.jpg`,
 });
 
