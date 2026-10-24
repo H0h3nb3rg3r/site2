@@ -12,14 +12,14 @@ export const LOJA = {
     ["Sábado", "09h às 16h"],
     ["Domingo", "Fechado"],
   ],
-  // Fotos em public/loja/ (1.jpg ... 6.jpg)
+  // Fotos em public/loja/ (os nomes precisam ser iguais aos dos arquivos)
   fotos: [
-    ["/loja/1.jpg", "Showroom"],
-    ["/loja/2.jpg", "Supercarros"],
-    ["/loja/3.jpg", "Lounge VIP"],
-    ["/loja/4.jpg", "Fachada"],
-    ["/loja/5.jpg", "Entrega do carro"],
-    ["/loja/6.jpg", "Nossa equipe"],
+    ["/loja/showroom.avif", "Showroom"],
+    ["/loja/supercarros.jpg", "Supercarros"],
+    ["/loja/loungue%20vip.png", "Lounge VIP"],
+    ["/loja/fachada.jpg", "Fachada"],
+    ["/loja/entrega%20do%20carro.jpg", "Entrega do carro"],
+    ["/loja/equipe.webp", "Nossa equipe"],
   ],
 };
 
