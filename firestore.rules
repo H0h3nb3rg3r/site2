@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Test-drives enviados pelo formulário
+    match /agendamentos/{doc} {
+      allow create: if true;
+    }
+
+    // Estoque de carros (somente leitura pública)
+    match /carros/{doc} {
+      allow read: if true;
+    }
+
+    // Acrescente aqui a regra do formulário de contato que você já tinha
+  }
+}

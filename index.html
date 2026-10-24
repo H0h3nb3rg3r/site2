@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VELOCE Motors | Carros Esportivos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="car" viewBox="0 0 300 100"><path d="M8 72 L28 58 L92 47 L132 24 L210 24 L252 48 L286 58 L292 74 L274 78 A21 21 0 0 0 232 78 L82 78 A21 21 0 0 0 40 78 L14 78Z M140 30 L128 46 L205 46 L200 30Z" fill="currentColor" fill-rule="evenodd"/><circle cx="61" cy="78" r="15" fill="#0a0a0f" stroke="currentColor" stroke-width="3"/><circle cx="253" cy="78" r="15" fill="#0a0a0f" stroke="currentColor" stroke-width="3"/></symbol>
+</svg>
+
+<div id="loader"><span>VELOCE</span><i></i></div>
+<div id="glow"></div>
+
+<header id="nav">
+  <a href="#topo" class="logo">VELO<b>CE</b></a>
+  <nav>
+    <a href="#estoque">Estoque</a>
+    <a href="#experiencia">Experiência</a>
+    <a href="#agendar" class="btn sm">Test-drive</a>
+  </nav>
+</header>
+
+<main id="topo">
+  <section class="hero">
+    <div class="lines"></div>
+    <p class="eyebrow reveal">Concessionária premium · desde 1998</p>
+    <h1 class="reveal">Velocidade<br><span>sem limites.</span></h1>
+    <p class="sub reveal">Supercarros e esportivos selecionados a dedo, com procedência impecável e atendimento sob medida.</p>
+    <div class="cta reveal">
+      <a href="#estoque" class="btn">Ver estoque</a>
+      <a href="#agendar" class="btn ghost">Agendar test-drive</a>
+    </div>
+    <svg class="hero-car"><use href="#car"/></svg>
+  </section>
+
+  <div class="marquee"><div>
+    <span>FERRARI</span><span>LAMBORGHINI</span><span>PORSCHE</span><span>McLAREN</span><span>ASTON MARTIN</span><span>MASERATI</span><span>BMW M</span><span>AUDI RS</span>
+    <span>FERRARI</span><span>LAMBORGHINI</span><span>PORSCHE</span><span>McLAREN</span><span>ASTON MARTIN</span><span>MASERATI</span><span>BMW M</span><span>AUDI RS</span>
+  </div></div>
+
+  <section class="stats">
+    <div class="reveal"><strong data-n="26">0</strong><small>anos de história</small></div>
+    <div class="reveal"><strong data-n="1800">0</strong><small>carros entregues</small></div>
+    <div class="reveal"><strong data-n="98">0</strong><small>% de satisfação</small></div>
+    <div class="reveal"><strong data-n="42">0</strong><small>marcas exclusivas</small></div>
+  </section>
+
+  <section id="estoque" class="wrap">
+    <h2 class="reveal">Nosso <span>estoque</span></h2>
+    <div class="filters reveal" id="filters">
+      <button class="on" data-f="todos">Todos</button>
+      <button data-f="Supercarro">Supercarros</button>
+      <button data-f="Coupé">Coupés</button>
+      <button data-f="Conversível">Conversíveis</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="experiencia" class="wrap">
+    <h2 class="reveal">A experiência <span>Veloce</span></h2>
+    <div class="features">
+      <article class="reveal"><em>01</em><h3>Curadoria rigorosa</h3><p>Cada carro passa por 200 pontos de inspeção e laudo cautelar completo.</p></article>
+      <article class="reveal"><em>02</em><h3>Concierge dedicado</h3><p>Um especialista cuida de financiamento, documentação e entrega.</p></article>
+      <article class="reveal"><em>03</em><h3>Garantia estendida</h3><p>Cobertura mecânica de até 3 anos e assistência 24 horas.</p></article>
+    </div>
+  </section>
+
+  <section id="agendar" class="wrap">
+    <div class="formbox reveal">
+      <div>
+        <h2>Sinta o <span>rugido</span></h2>
+        <p>Agende seu test-drive. Nossa equipe retorna em até 2 horas.</p>
+      </div>
+      <form id="form">
+        <input name="nome" placeholder="Seu nome" required>
+        <input name="telefone" type="tel" placeholder="WhatsApp" required>
+        <select name="carro" id="carroSel" required></select>
+        <input name="data" type="date" required>
+        <textarea name="mensagem" rows="3" placeholder="Mensagem (opcional)"></textarea>
+        <button class="btn" type="submit">Agendar agora</button>
+        <p id="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a href="#topo" class="logo">VELO<b>CE</b></a>
+  <p>© 2026 Veloce Motors · Todos os direitos reservados</p>
+</footer>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
