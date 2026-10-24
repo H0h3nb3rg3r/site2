@@ -13,6 +13,7 @@ function resumo() {
   const sinal = Math.round(car.preco * SINAL);
   $("#resumo").innerHTML = `
     <div class="linha"><span>Valor do veículo</span><b>${brl(car.preco)}</b></div>
+    <div class="linha"><span>Cor</span><b>${sel.cor || "—"}</b></div>
     <div class="linha"><span>Entrega em casa</span><b>${sel.entrega === "casa" ? brl(frete) : sel.entrega ? "Grátis (retirada)" : "—"}</b></div>
     <div class="linha total"><span>Total do pedido</span><b>${brl(car.preco + frete)}</b></div>
     <div class="sinal">Sinal de reserva (${Math.round(SINAL * 100)}%): <strong>${brl(sinal)}</strong><br>O restante é pago na retirada ou entrega, ou financiado.</div>`;
@@ -27,13 +28,14 @@ function blocos() {
   resumo();
 }
 
-// Chips (entrega, pagamento, horário)
+// Chips (cor, entrega, pagamento, horário)
 document.addEventListener("click", (e) => {
   const b = e.target.closest(".chip");
   if (!b) return;
   b.parentElement.querySelectorAll(".chip").forEach((x) => x.classList.toggle("on", x === b));
   sel[b.dataset.k] = b.dataset.v || b.textContent;
   if (b.dataset.k === "entrega") blocos();
+  if (b.dataset.k === "cor") resumo();
 });
 
 // Máscara do CPF
@@ -51,6 +53,7 @@ $("#form").addEventListener("submit", async (e) => {
   const cpf = f.cpf.replace(/\D/g, "");
   st.style.color = "#ff2a3d";
 
+  if (!sel.cor) return (st.textContent = "Escolha a cor do veículo.");
   if (!sel.entrega) return (st.textContent = "Escolha como deseja receber o carro.");
   if (sel.entrega === "retirada" && !sel.horario) return (st.textContent = "Escolha o horário da retirada.");
   if (!sel.pagamento) return (st.textContent = "Escolha a forma de pagamento.");
@@ -64,6 +67,7 @@ $("#form").addEventListener("submit", async (e) => {
     const ref = await addDoc(collection(db, "pedidos"), {
       carroId: car.id,
       carro: car.nome,
+      cor: sel.cor,
       preco: car.preco,
       entrega: sel.entrega,
       frete,
@@ -79,6 +83,7 @@ $("#form").addEventListener("submit", async (e) => {
       cpf,
       email: f.email,
       telefone: f.telefone,
+      observacoes: f.observacoes || "",
       status: "aguardando contato",
       criadoEm: serverTimestamp(),
     });
@@ -119,6 +124,7 @@ carregarCarros().then((cars) => {
   $("#info").innerHTML = `<span class="tag">${car.tipo}</span><h3>${car.nome}</h3>
     <div class="specs"><div><b>${car.cv}</b>cv</div><div><b>${car.s}s</b>0–100</div><div><b>${car.ano}</b>ano</div></div>`;
   $("#enderecoLoja").textContent = `Retirada em: ${LOJA.endereco} — ${LOJA.cidade}`;
+  $("#cores").innerHTML = (car.cores || []).map((c) => `<button type="button" class="chip" data-k="cor">${c}</button>`).join("");
   $("#horarios").innerHTML = horarios.map((h) => `<button type="button" class="chip" data-k="horario">${h}</button>`).join("");
   resumo();
 });

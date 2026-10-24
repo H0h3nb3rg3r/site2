@@ -39,7 +39,13 @@
 
   <form id="form" class="td-form">
     <div class="passo">
-      <h4><b>01</b>Como deseja receber?</h4>
+      <h4><b>01</b>Cor do veículo</h4>
+      <div class="chips" id="cores"></div>
+      <p class="aviso">Escolha a cor que deseja para o seu veículo.</p>
+    </div>
+
+    <div class="passo">
+      <h4><b>02</b>Como deseja receber?</h4>
       <div class="chips" id="entregas">
         <button type="button" class="chip" data-k="entrega" data-v="retirada">Retirar na loja</button>
         <button type="button" class="chip" data-k="entrega" data-v="casa">Entrega em casa</button>
@@ -60,7 +66,7 @@
     </div>
 
     <div class="passo">
-      <h4><b>02</b>Forma de pagamento</h4>
+      <h4><b>03</b>Forma de pagamento</h4>
       <div class="chips" id="pagamentos">
         <button type="button" class="chip" data-k="pagamento" data-v="PIX">PIX</button>
         <button type="button" class="chip" data-k="pagamento" data-v="Transferência (TED)">Transferência</button>
@@ -71,7 +77,7 @@
     </div>
 
     <div class="passo">
-      <h4><b>03</b>Seus dados</h4>
+      <h4><b>04</b>Seus dados</h4>
       <div class="dupla">
         <input name="nome" placeholder="Nome completo" required>
         <input name="cpf" id="cpf" placeholder="CPF" inputmode="numeric" required>
@@ -80,6 +86,7 @@
         <input name="email" type="email" placeholder="E-mail" required>
         <input name="telefone" type="tel" placeholder="WhatsApp" required>
       </div>
+      <textarea name="observacoes" rows="3" placeholder="Observações do pedido (opcional)" style="margin-top:14px"></textarea>
     </div>
 
     <label class="termos">
