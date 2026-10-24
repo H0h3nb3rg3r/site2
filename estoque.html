@@ -39,8 +39,34 @@
     <div class="filters" id="filters"></div>
     <select id="ordem">
       <option value="">Ordenar por</option>
-      <option value="menor">Menor preço</option>
-      <option value="maior">Maior preço</option>
+      <optgroup label="Preço">
+        <option value="preco-asc">Menor preço</option>
+        <option value="preco-desc">Maior preço</option>
+      </optgroup>
+      <optgroup label="Potência">
+        <option value="cv-desc">Mais potente</option>
+        <option value="cv-asc">Menos potente</option>
+      </optgroup>
+      <optgroup label="Aceleração (0–100 km/h)">
+        <option value="s-asc">Mais rápido</option>
+        <option value="s-desc">Mais lento</option>
+      </optgroup>
+      <optgroup label="Velocidade máxima">
+        <option value="vmax-desc">Maior velocidade</option>
+        <option value="vmax-asc">Menor velocidade</option>
+      </optgroup>
+      <optgroup label="Torque">
+        <option value="nm-desc">Maior torque</option>
+        <option value="nm-asc">Menor torque</option>
+      </optgroup>
+      <optgroup label="Ano">
+        <option value="ano-desc">Mais novo</option>
+        <option value="ano-asc">Mais antigo</option>
+      </optgroup>
+      <optgroup label="Nome">
+        <option value="nome-asc">A → Z</option>
+        <option value="nome-desc">Z → A</option>
+      </optgroup>
     </select>
   </div>
   <div class="grid" id="grid"></div>

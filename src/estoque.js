@@ -34,8 +34,17 @@ function render() {
       (!marca || c.marca === marca) &&
       c.nome.toLowerCase().includes(termo)
   );
-  if (ordem === "menor") lista.sort((a, b) => a.preco - b.preco);
-  if (ordem === "maior") lista.sort((a, b) => b.preco - a.preco);
+
+  // Ordenação: "campo-asc" ou "campo-desc" (ex.: cv-desc = mais potente primeiro)
+  if (ordem) {
+    const [campo, sentido] = ordem.split("-");
+    const dir = sentido === "desc" ? -1 : 1;
+    lista.sort((a, b) =>
+      campo === "nome"
+        ? dir * a.nome.localeCompare(b.nome)
+        : dir * ((a[campo] ?? 0) - (b[campo] ?? 0))
+    );
+  }
 
   $("#grid").innerHTML = lista.length
     ? lista.map((c) => cardHTML(c)).join("")
