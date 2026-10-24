@@ -11,6 +11,8 @@ export default defineConfig({
         estoque: pagina("./estoque.html"),
         testdrive: pagina("./test-drive.html"),
         carro: pagina("./carro.html"),
+        loja: pagina("./loja.html"),
+        comprar: pagina("./comprar.html"),
       },
     },
   },

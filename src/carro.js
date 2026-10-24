@@ -64,9 +64,10 @@ carregarCarros().then((cars) => {
         <p class="det-desc">${desc}</p>
         <div class="det-preco">${brl(c.preco)}</div>
         <div class="cta">
-          <a class="btn" href="/test-drive.html?carro=${encodeURIComponent(c.nome)}">Agendar test-drive</a>
-          <a class="btn ghost" href="/estoque.html">Ver outros carros</a>
+          <a class="btn" href="/comprar.html?id=${c.id}">Comprar agora</a>
+          <a class="btn ghost" href="/test-drive.html?carro=${encodeURIComponent(c.nome)}">Agendar test-drive</a>
         </div>
+        <p class="aviso">Retire na loja ou receba em casa. Reserve com um sinal e pague o restante na entrega.</p>
       </div>
     </section>
 
