@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nossa loja | VELOCE Motors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<div id="glow"></div>
+
+<header id="nav">
+  <a href="/" class="logo">VELO<b>CE</b></a>
+  <nav>
+    <a href="/">Início</a>
+    <a href="/estoque.html">Estoque</a>
+    <a href="/loja.html">Nossa loja</a>
+    <a href="/test-drive.html" class="btn sm">Test-drive</a>
+  </nav>
+</header>
+
+<div class="topo-pagina">
+  <p class="eyebrow">Venha nos visitar</p>
+  <h1>Nossa <span>loja</span></h1>
+  <p>Conheça o showroom pessoalmente, veja os carros de perto e retire o seu na concessionária.</p>
+</div>
+
+<main class="pagina">
+  <div class="loja">
+    <div class="info-cards">
+      <div class="info-card">
+        <h3>Endereço</h3>
+        <p id="endereco"></p>
+        <a id="rota" class="btn sm" target="_blank" rel="noopener">Como chegar</a>
+      </div>
+      <div class="info-card">
+        <h3>Contato</h3>
+        <a id="tel"></a>
+        <a id="zap" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="email"></a>
+      </div>
+      <div class="info-card">
+        <h3>Horário de atendimento</h3>
+        <ul class="horario" id="horario"></ul>
+      </div>
+    </div>
+    <div class="mapa"><iframe id="mapa" title="Mapa da loja" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  </div>
+
+  <h2>Conheça nosso <span>espaço</span></h2>
+  <div class="galeria" id="galeria"></div>
+
+  <div class="formbox" style="margin-top:80px">
+    <div>
+      <h2>Pronto para <span>acelerar?</span></h2>
+      <p>Escolha seu carro, reserve online e retire aqui na loja ou receba em casa.</p>
+    </div>
+    <div class="cta" style="align-content:center">
+      <a href="/estoque.html" class="btn">Ver estoque</a>
+      <a href="/test-drive.html" class="btn ghost">Agendar test-drive</a>
+    </div>
+  </div>
+</main>
+
+<div class="lb" id="lb" hidden><img alt=""></div>
+
+<footer>
+  <a href="/" class="logo">VELO<b>CE</b></a>
+  <p>© 2026 Veloce Motors · Todos os direitos reservados</p>
+</footer>
+
+<script type="module" src="/src/loja-pagina.js"></script>
+</body>
+</html>

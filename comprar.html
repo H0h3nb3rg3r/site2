@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comprar | VELOCE Motors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="car" viewBox="0 0 300 100"><path d="M8 72 L28 58 L92 47 L132 24 L210 24 L252 48 L286 58 L292 74 L274 78 A21 21 0 0 0 232 78 L82 78 A21 21 0 0 0 40 78 L14 78Z M140 30 L128 46 L205 46 L200 30Z" fill="currentColor" fill-rule="evenodd"/><circle cx="61" cy="78" r="15" fill="#0a0a0f" stroke="currentColor" stroke-width="3"/><circle cx="253" cy="78" r="15" fill="#0a0a0f" stroke="currentColor" stroke-width="3"/></symbol>
+</svg>
+<div id="glow"></div>
+
+<header id="nav">
+  <a href="/" class="logo">VELO<b>CE</b></a>
+  <nav>
+    <a href="/">Início</a>
+    <a href="/estoque.html">Estoque</a>
+    <a href="/loja.html">Nossa loja</a>
+    <a href="/test-drive.html" class="btn sm">Test-drive</a>
+  </nav>
+</header>
+
+<div class="topo-pagina">
+  <p class="eyebrow">Compra segura</p>
+  <h1>Finalize seu <span>pedido</span></h1>
+  <p>Reserve online em poucos minutos. Retire na loja ou receba em casa.</p>
+</div>
+
+<main class="td">
+  <aside class="td-visual">
+    <div class="td-foto" id="foto"></div>
+    <div class="td-info" id="info"></div>
+    <div class="resumo" id="resumo"></div>
+  </aside>
+
+  <form id="form" class="td-form">
+    <div class="passo">
+      <h4><b>01</b>Como deseja receber?</h4>
+      <div class="chips" id="entregas">
+        <button type="button" class="chip" data-k="entrega" data-v="retirada">Retirar na loja</button>
+        <button type="button" class="chip" data-k="entrega" data-v="casa">Entrega em casa</button>
+      </div>
+      <div id="blocoRetirada" hidden>
+        <p class="aviso" id="enderecoLoja"></p>
+        <input type="date" name="data" id="data" style="margin-top:12px">
+        <div class="chips" id="horarios" style="margin-top:12px"></div>
+      </div>
+      <div id="blocoCasa" hidden>
+        <div class="dupla" style="margin-top:12px">
+          <input name="cep" placeholder="CEP">
+          <input name="cidade" placeholder="Cidade / UF">
+        </div>
+        <input name="endereco" placeholder="Endereço completo" style="margin-top:14px">
+        <p class="aviso">Entrega em cegonha fechada, com seguro total durante o transporte.</p>
+      </div>
+    </div>
+
+    <div class="passo">
+      <h4><b>02</b>Forma de pagamento</h4>
+      <div class="chips" id="pagamentos">
+        <button type="button" class="chip" data-k="pagamento" data-v="PIX">PIX</button>
+        <button type="button" class="chip" data-k="pagamento" data-v="Transferência (TED)">Transferência</button>
+        <button type="button" class="chip" data-k="pagamento" data-v="Financiamento">Financiamento</button>
+        <button type="button" class="chip" data-k="pagamento" data-v="Cartão de crédito">Cartão de crédito</button>
+      </div>
+      <p class="aviso">Você não paga nada agora. Após o pedido, nossa equipe envia os dados seguros de pagamento do sinal em até 2 horas.</p>
+    </div>
+
+    <div class="passo">
+      <h4><b>03</b>Seus dados</h4>
+      <div class="dupla">
+        <input name="nome" placeholder="Nome completo" required>
+        <input name="cpf" id="cpf" placeholder="CPF" inputmode="numeric" required>
+      </div>
+      <div class="dupla" style="margin-top:14px">
+        <input name="email" type="email" placeholder="E-mail" required>
+        <input name="telefone" type="tel" placeholder="WhatsApp" required>
+      </div>
+    </div>
+
+    <label class="termos">
+      <input type="checkbox" name="termos" required>
+      Li e concordo com as condições de reserva e compra. O sinal garante o carro por 3 dias.
+    </label>
+
+    <button class="btn" type="submit">Confirmar pedido</button>
+    <p id="status"></p>
+  </form>
+</main>
+
+<footer>
+  <a href="/" class="logo">VELO<b>CE</b></a>
+  <p>© 2026 Veloce Motors · Todos os direitos reservados</p>
+</footer>
+
+<script type="module" src="/src/comprar.js"></script>
+</body>
+</html>
