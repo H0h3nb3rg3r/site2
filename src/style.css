@@ -380,10 +380,37 @@ h2 span {
 }
 
 .car .pic {
-  height: 170px;
+  height: 210px;
+  position: relative;
+  overflow: hidden;
   display: grid;
   place-items: center;
   background: radial-gradient(circle at 50% 100%, hsl(var(--h) 90% 50% / .35), transparent 70%), linear-gradient(#14141d, #0f0f16);
+}
+
+.car .pic img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s;
+}
+
+.car .pic img + svg {
+  display: none;
+}
+
+.car .pic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--card), transparent 55%);
+  pointer-events: none;
+}
+
+.car:hover .pic img {
+  transform: scale(1.08);
 }
 
 .car .pic svg {

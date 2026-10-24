@@ -2,13 +2,14 @@ import { db } from "./firebase.js";
 import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
 
 // Estoque local (usado se a coleção "carros" do Firestore estiver vazia)
+// Coloque as fotos em public/carros/ com os nomes abaixo
 const fallback = [
-  { nome: "Ferrari 296 GTB", tipo: "Supercarro", cv: 830, s: 2.9, preco: 4290000, h: 355 },
-  { nome: "Lamborghini Huracán", tipo: "Supercarro", cv: 640, s: 3.2, preco: 3650000, h: 50 },
-  { nome: "Porsche 911 GT3", tipo: "Coupé", cv: 510, s: 3.4, preco: 2490000, h: 210 },
-  { nome: "McLaren 720S Spider", tipo: "Conversível", cv: 720, s: 2.9, preco: 4100000, h: 25 },
-  { nome: "Aston Martin Vantage", tipo: "Coupé", cv: 665, s: 3.5, preco: 2790000, h: 150 },
-  { nome: "Maserati MC20 Cielo", tipo: "Conversível", cv: 630, s: 3.0, preco: 3380000, h: 230 },
+  { nome: "Ferrari 296 GTB", tipo: "Supercarro", cv: 830, s: 2.9, preco: 4290000, h: 355, img: "/carros/ferrari-296.jpg" },
+  { nome: "Lamborghini Huracán", tipo: "Supercarro", cv: 640, s: 3.2, preco: 3650000, h: 50, img: "/carros/lamborghini-huracan.jpg" },
+  { nome: "Porsche 911 GT3", tipo: "Coupé", cv: 510, s: 3.4, preco: 2490000, h: 210, img: "/carros/porsche-911-gt3.jpg" },
+  { nome: "McLaren 720S Spider", tipo: "Conversível", cv: 720, s: 2.9, preco: 4100000, h: 25, img: "/carros/mclaren-720s.jpg" },
+  { nome: "Aston Martin Vantage", tipo: "Coupé", cv: 665, s: 3.5, preco: 2790000, h: 150, img: "/carros/aston-martin-vantage.jpg" },
+  { nome: "Maserati MC20 Cielo", tipo: "Conversível", cv: 630, s: 3.0, preco: 3380000, h: 230, img: "/carros/maserati-mc20.jpg" },
 ];
 
 const $ = (s) => document.querySelector(s);
@@ -51,7 +52,10 @@ const observeAll = () => document.querySelectorAll(".reveal:not(.in)").forEach((
 function render() {
   $("#grid").innerHTML = cars.map((c) => `
     <article class="car reveal" data-t="${c.tipo}" style="--h:${c.h}">
-      <div class="pic"><svg viewBox="0 0 300 100"><use href="#car"/></svg></div>
+      <div class="pic">
+        ${c.img ? `<img src="${c.img}" alt="${c.nome}" loading="lazy" onerror="this.remove()">` : ""}
+        <svg viewBox="0 0 300 100"><use href="#car"/></svg>
+      </div>
       <div class="info">
         <span class="tag">${c.tipo}</span>
         <h3>${c.nome}</h3>
