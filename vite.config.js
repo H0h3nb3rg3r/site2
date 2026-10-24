@@ -10,6 +10,7 @@ export default defineConfig({
         main: pagina("./index.html"),
         estoque: pagina("./estoque.html"),
         testdrive: pagina("./test-drive.html"),
+        carro: pagina("./carro.html"),
       },
     },
   },

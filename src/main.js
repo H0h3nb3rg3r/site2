@@ -1,20 +1,9 @@
 import { db } from "./firebase.js";
-import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
-
-// Estoque local (usado se a coleção "carros" do Firestore estiver vazia)
-// Coloque as fotos em public/carros/ com os nomes abaixo
-const fallback = [
-  { nome: "Ferrari 296 GTB", tipo: "Supercarro", cv: 830, s: 2.9, preco: 4290000, h: 355, img: "/carros/ferrari-296.jpg" },
-  { nome: "Lamborghini Huracán", tipo: "Supercarro", cv: 640, s: 3.2, preco: 3650000, h: 50, img: "/carros/lamborghini-huracan.jpg" },
-  { nome: "Porsche 911 GT3", tipo: "Coupé", cv: 510, s: 3.4, preco: 2490000, h: 210, img: "/carros/porsche-911-gt3.jpg" },
-  { nome: "McLaren 720S Spider", tipo: "Conversível", cv: 720, s: 2.9, preco: 4100000, h: 25, img: "/carros/mclaren-720s.jpg" },
-  { nome: "Aston Martin Vantage", tipo: "Coupé", cv: 665, s: 3.5, preco: 2790000, h: 150, img: "/carros/aston-martin-vantage.jpg" },
-  { nome: "Maserati MC20 Cielo", tipo: "Conversível", cv: 630, s: 3.0, preco: 3380000, h: 230, img: "/carros/maserati-mc20.jpg" },
-];
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { carregarCarros, cardHTML, irParaCarro } from "./dados.js";
 
 const $ = (s) => document.querySelector(s);
-const brl = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
-let cars = fallback;
+let cars = [];
 
 // Loader
 addEventListener("load", () => setTimeout(() => $("#loader").classList.add("done"), 1300));
@@ -48,26 +37,6 @@ function count(el) {
 
 const observeAll = () => document.querySelectorAll(".reveal:not(.in)").forEach((el) => io.observe(el));
 
-// Renderização do estoque
-function render() {
-  $("#grid").innerHTML = cars.map((c) => `
-    <article class="car reveal" data-t="${c.tipo}" style="--h:${c.h}">
-      <div class="pic">
-        ${c.img ? `<img src="${c.img}" alt="${c.nome}" loading="lazy" onerror="this.remove()">` : ""}
-        <svg viewBox="0 0 300 100"><use href="#car"/></svg>
-      </div>
-      <div class="info">
-        <span class="tag">${c.tipo}</span>
-        <h3>${c.nome}</h3>
-        <div class="specs"><div><b>${c.cv}</b>cv</div><div><b>${c.s}s</b>0–100</div></div>
-        <div class="price">${brl(c.preco)} <a href="#agendar" data-car="${c.nome}">Test-drive →</a></div>
-      </div>
-    </article>`).join("");
-  $("#carroSel").innerHTML = `<option value="">Escolha o carro</option>` + cars.map((c) => `<option>${c.nome}</option>`).join("");
-  tilt();
-  observeAll();
-}
-
 // Efeito 3D nos cards
 function tilt() {
   document.querySelectorAll(".car").forEach((card) => {
@@ -80,30 +49,21 @@ function tilt() {
   });
 }
 
-// Filtros
-$("#filters").addEventListener("click", (e) => {
-  const b = e.target.closest("button");
-  if (!b) return;
-  document.querySelectorAll("#filters button").forEach((x) => x.classList.toggle("on", x === b));
-  document.querySelectorAll(".car").forEach((c) => c.classList.toggle("hide", b.dataset.f !== "todos" && c.dataset.t !== b.dataset.f));
-});
+// Mostra só os destaques da loja
+function render() {
+  const destaques = cars.filter((c) => c.destaque);
+  $("#grid").innerHTML = (destaques.length ? destaques : cars.slice(0, 4)).map((c) => cardHTML(c, true)).join("");
+  $("#carroSel").innerHTML = `<option value="">Escolha o carro</option>` + cars.map((c) => `<option>${c.nome}</option>`).join("");
+  tilt();
+  observeAll();
+}
 
-// Pré-seleciona o carro ao clicar em "Test-drive"
+// Card abre a página do carro; "Test-drive →" pré-seleciona no formulário
+irParaCarro("#grid");
 $("#grid").addEventListener("click", (e) => {
   const a = e.target.closest("[data-car]");
   if (a) $("#carroSel").value = a.dataset.car;
 });
-
-// Firestore: carrega estoque (coleção "carros"), se existir
-async function loadCars() {
-  try {
-    const snap = await getDocs(collection(db, "carros"));
-    if (!snap.empty) cars = snap.docs.map((d) => ({ h: 355, tipo: "Coupé", ...d.data() }));
-  } catch (err) {
-    console.warn("Usando estoque local:", err.message);
-  }
-  render();
-}
 
 // Firestore: salva agendamentos na coleção "agendamentos"
 $("#form").addEventListener("submit", async (e) => {
@@ -129,4 +89,7 @@ $("#form").addEventListener("submit", async (e) => {
 });
 
 observeAll();
-loadCars();
+carregarCarros().then((lista) => {
+  cars = lista;
+  render();
+});
