@@ -13,6 +13,8 @@ export default defineConfig({
         carro: pagina("./carro.html"),
         loja: pagina("./loja.html"),
         comprar: pagina("./comprar.html"),
+        historia: pagina("./historia.html"),
+        contato: pagina("./contato.html"),
       },
     },
   },
