@@ -12,14 +12,16 @@ export const LOJA = {
     ["Sábado", "09h às 16h"],
     ["Domingo", "Fechado"],
   ],
-  // Fotos em public/loja/ (1.jpg ... 6.jpg)
+  // Fotos provisórias (usam as imagens dos carros que já existem no projeto).
+  // Quando tiver as fotos reais, coloque-as em public/loja/ (1.jpg ... 6.jpg)
+  // e troque os caminhos por "/loja/1.jpg", "/loja/2.jpg" etc.
   fotos: [
-    ["/loja/1.jpg", "Showroom"],
-    ["/loja/2.jpg", "Supercarros"],
-    ["/loja/3.jpg", "Lounge VIP"],
-    ["/loja/4.jpg", "Fachada"],
-    ["/loja/5.jpg", "Entrega do carro"],
-    ["/loja/6.jpg", "Nossa equipe"],
+    ["/carros/ferrari-296.jpg", "Showroom"],
+    ["/carros/lamborghini-huracan.jpg", "Supercarros"],
+    ["/carros/porsche-911-gt3.jpg", "Lounge VIP"],
+    ["/carros/mclaren-720s.jpg", "Fachada"],
+    ["/carros/audi-r8.jpg", "Entrega do carro"],
+    ["/carros/bmw-m4.jpg", "Nossa equipe"],
   ],
 };
 

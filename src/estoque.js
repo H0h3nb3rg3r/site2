@@ -1,53 +1,49 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Estoque | VELOCE Motors</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/src/style.css">
-</head>
-<body>
-<svg width="0" height="0" style="position:absolute">
-  <symbol id="car" viewBox="0 0 300 100"><path d="M8 72 L28 58 L92 47 L132 24 L210 24 L252 48 L286 58 L292 74 L274 78 A21 21 0 0 0 232 78 L82 78 A21 21 0 0 0 40 78 L14 78Z M140 30 L128 46 L205 46 L200 30Z" fill="currentColor" fill-rule="evenodd"/><circle cx="61" cy="78" r="15" fill="#0a0a0f" stroke="currentColor" stroke-width="3"/><circle cx="253" cy="78" r="15" fill="#0a0a0f" stroke="currentColor" stroke-width="3"/></symbol>
-</svg>
-<div id="glow"></div>
+import { tilt } from "./comum.js";
+import { carregarCarros, cardHTML, irParaCarro } from "./dados.js";
 
-<header id="nav">
-  <a href="/" class="logo">VELO<b>CE</b></a>
-  <nav>
-    <a href="/">Início</a>
-    <a href="/estoque.html">Estoque</a>
-    <a href="/loja.html">Nossa loja</a>
-    <a href="/test-drive.html" class="btn sm">Test-drive</a>
-  </nav>
-</header>
+const $ = (s) => document.querySelector(s);
 
-<div class="topo-pagina">
-  <p class="eyebrow">Coleção completa</p>
-  <h1>Nosso <span>estoque</span></h1>
-  <p>Encontre o esportivo ideal. Filtre por categoria, busque pelo nome ou ordene pelo preço.</p>
-</div>
+let cars = [];
+let filtro = "todos";
 
-<main class="pagina">
-  <div class="controles">
-    <input id="busca" type="search" placeholder="Buscar carro...">
-    <div class="filters" id="filters"></div>
-    <select id="ordem">
-      <option value="">Ordenar por</option>
-      <option value="menor">Menor preço</option>
-      <option value="maior">Maior preço</option>
-    </select>
-  </div>
-  <div class="grid" id="grid"></div>
-</main>
+// Monta os botões de categoria a partir dos carros disponíveis
+function montarFiltros() {
+  const tipos = [...new Set(cars.map((c) => c.tipo))].sort();
+  $("#filters").innerHTML =
+    `<button class="on" data-f="todos">Todos</button>` +
+    tipos.map((t) => `<button data-f="${t}">${t}</button>`).join("");
+}
 
-<footer>
-  <a href="/" class="logo">VELO<b>CE</b></a>
-  <p>© 2026 Veloce Motors · Todos os direitos reservados</p>
-</footer>
+function render() {
+  const termo = $("#busca").value.trim().toLowerCase();
+  const ordem = $("#ordem").value;
 
-<script type="module" src="/src/estoque.js"></script>
-</body>
-</html>
+  let lista = cars.filter(
+    (c) => (filtro === "todos" || c.tipo === filtro) && c.nome.toLowerCase().includes(termo)
+  );
+  if (ordem === "menor") lista.sort((a, b) => a.preco - b.preco);
+  if (ordem === "maior") lista.sort((a, b) => b.preco - a.preco);
+
+  $("#grid").innerHTML = lista.length
+    ? lista.map((c) => cardHTML(c)).join("")
+    : `<p style="grid-column:1/-1;text-align:center;opacity:.7">Nenhum carro encontrado.</p>`;
+  tilt();
+}
+
+$("#filters").addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  filtro = b.dataset.f;
+  $("#filters").querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+  render();
+});
+$("#busca").addEventListener("input", render);
+$("#ordem").addEventListener("change", render);
+
+irParaCarro("#grid");
+
+carregarCarros().then((lista) => {
+  cars = lista;
+  montarFiltros();
+  render();
+});
