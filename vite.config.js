@@ -16,6 +16,8 @@ export default defineConfig({
         historia: pagina("./historia.html"),
         contato: pagina("./contato.html"),
         conta: pagina("./conta.html"),
+        privacidade: pagina("./privacidade.html"),
+        termos: pagina("./termos.html"),
       },
     },
   },

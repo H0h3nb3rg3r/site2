@@ -1,3 +1,4 @@
+import "./legal.js";
 import { auth, quandoLogar } from "./auth.js";
 
 const nav = document.querySelector("#nav nav");

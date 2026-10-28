@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -14,8 +13,16 @@ const firebaseConfig = {
 
 // Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
+// O Analytics só liga depois que o visitante aceita os cookies (veja legal.js)
+let analyticsLigado = false;
+async function ligarAnalytics() {
+  if (analyticsLigado) return;
+  analyticsLigado = true;
+  const { getAnalytics, isSupported } = await import("firebase/analytics");
+  if (await isSupported()) getAnalytics(app);
+}
+
 // Exporta para usar em outros arquivos do seu projeto
-export { app, db };
+export { app, db, ligarAnalytics };
