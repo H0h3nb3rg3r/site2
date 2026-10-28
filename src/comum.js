@@ -1,3 +1,5 @@
+import "./conta-nav.js";
+
 const $ = (s) => document.querySelector(s);
 
 addEventListener("scroll", () => $("#nav").classList.toggle("scrolled", scrollY > 40));

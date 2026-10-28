@@ -1,3 +1,4 @@
+import "./conta-nav.js";
 import { carregarCarros, cardHTML, irParaCarro } from "./dados.js";
 import { iniciarTestDrive } from "./testdrive-form.js";
 

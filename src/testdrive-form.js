@@ -1,5 +1,6 @@
 import { brl } from "./dados.js";
 import { db } from "./firebase.js";
+import { uidAtual, ligarContaAoForm } from "./auth.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const $ = (s) => document.querySelector(s);
@@ -50,6 +51,9 @@ export function iniciarTestDrive(cars) {
   $("#carroSel").addEventListener("change", (e) => escolher(e.target.value));
   $("#data").min = new Date().toISOString().split("T")[0];
 
+  // Conta: aviso e preenchimento automático dos dados
+  ligarContaAoForm($("#form"));
+
   // Envio para o Firestore
   $("#form").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -73,10 +77,13 @@ export function iniciarTestDrive(cars) {
         nome: f.nome,
         telefone: f.telefone,
         mensagem: f.mensagem || "",
+        ...(uidAtual() ? { uid: uidAtual() } : {}),
         criadoEm: serverTimestamp(),
       });
       st.style.color = "#4ade80";
-      st.textContent = "Test-drive agendado! Entraremos em contato para confirmar.";
+      st.textContent = uidAtual()
+        ? "Test-drive agendado! Ele já está na sua conta."
+        : "Test-drive agendado! Entraremos em contato para confirmar.";
       e.target.reset();
       escolher("");
     } catch (err) {

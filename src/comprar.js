@@ -2,6 +2,7 @@ import "./comum.js";
 import { carregarCarros, brl } from "./dados.js";
 import { LOJA, SINAL, FRETE } from "./loja.js";
 import { db } from "./firebase.js";
+import { uidAtual, ligarContaAoForm } from "./auth.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const $ = (s) => document.querySelector(s);
@@ -46,6 +47,9 @@ $("#cpf").addEventListener("input", (e) => {
 
 $("#data").min = new Date().toISOString().split("T")[0];
 
+// Conta: aviso e preenchimento automático dos dados
+ligarContaAoForm($("#form"));
+
 $("#form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const st = $("#status"), btn = e.target.querySelector("button[type=submit]");
@@ -85,11 +89,15 @@ $("#form").addEventListener("submit", async (e) => {
       telefone: f.telefone,
       observacoes: f.observacoes || "",
       status: "aguardando contato",
+      ...(uidAtual() ? { uid: uidAtual() } : {}),
       criadoEm: serverTimestamp(),
     });
     const proximo = sel.entrega === "retirada"
       ? `Sua retirada está marcada para ${f.data.split("-").reverse().join("/")} às ${sel.horario}, na ${LOJA.endereco}.`
       : "Entraremos em contato para combinar a data da entrega no seu endereço.";
+    const conta = uidAtual()
+      ? `<a class="btn" href="/conta.html">Ver na minha conta</a>`
+      : `<a class="btn" href="/">Voltar ao início</a>`;
     $("#form").innerHTML = `
       <div class="pedido-ok">
         <div class="selo">✓</div>
@@ -97,7 +105,7 @@ $("#form").addEventListener("submit", async (e) => {
         <div class="codigo">${ref.id.slice(0, 8).toUpperCase()}</div>
         <p>${proximo} Em até 2 horas nossa equipe envia os dados seguros para o pagamento do sinal.</p>
         <div class="cta">
-          <a class="btn" href="/">Voltar ao início</a>
+          ${conta}
           <a class="btn ghost" href="/loja.html">Ver a loja</a>
         </div>
       </div>`;
