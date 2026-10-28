@@ -1564,3 +1564,126 @@ footer {
     padding: 26px;
   }
 }
+
+/* ===== Legal: cookies, rodapé, páginas de texto ===== */
+.cookies {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  max-width: 720px;
+  z-index: 120;
+  padding: 22px 26px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: #0f0f16f2;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px #000000aa;
+}
+
+.cookies h4 {
+  font: 800 .9rem Orbitron;
+  letter-spacing: .1em;
+  margin-bottom: 8px;
+}
+
+.cookies p {
+  color: var(--mut);
+  font-size: .85rem;
+  margin-bottom: 16px;
+}
+
+.cookies a {
+  color: var(--red);
+}
+
+.cookies-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rodape-legal {
+  flex: 1 1 100%;
+  display: grid;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: .8rem;
+}
+
+.rodape-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.rodape-links a,
+.rodape-links button {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--mut);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.rodape-links a:hover,
+.rodape-links button:hover {
+  color: var(--red);
+}
+
+.legal {
+  max-width: 860px;
+  margin: auto;
+  padding: 0 5% 100px;
+}
+
+.legal h2 {
+  font-size: 1.3rem;
+  margin: 44px 0 14px;
+}
+
+.legal p,
+.legal li {
+  color: var(--mut);
+  margin-bottom: 12px;
+}
+
+.legal ul {
+  padding-left: 22px;
+}
+
+.legal strong {
+  color: var(--txt);
+}
+
+.legal a {
+  color: var(--red);
+}
+
+.tabela {
+  overflow-x: auto;
+}
+
+.legal table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: .9rem;
+}
+
+.legal th,
+.legal td {
+  text-align: left;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  color: var(--mut);
+}
+
+.legal th {
+  color: var(--txt);
+  background: #ffffff08;
+}
