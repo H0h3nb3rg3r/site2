@@ -15,6 +15,7 @@ export default defineConfig({
         comprar: pagina("./comprar.html"),
         historia: pagina("./historia.html"),
         contato: pagina("./contato.html"),
+        conta: pagina("./conta.html"),
       },
     },
   },
