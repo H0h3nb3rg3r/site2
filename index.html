@@ -83,19 +83,46 @@
     </div>
   </section>
 
-  <section id="agendar" class="wrap">
-    <div class="formbox reveal">
-      <div>
-        <h2>Sinta o <span>rugido</span></h2>
-        <p>Agende seu test-drive. Nossa equipe retorna em até 2 horas.</p>
-      </div>
-      <form id="form">
-        <input name="nome" placeholder="Seu nome" required>
-        <input name="telefone" type="tel" placeholder="WhatsApp" required>
-        <select name="carro" id="carroSel" required></select>
-        <input name="data" type="date" required>
-        <textarea name="mensagem" rows="3" placeholder="Mensagem (opcional)"></textarea>
-        <button class="btn" type="submit">Agendar agora</button>
+  <section id="agendar">
+    <div class="topo-pagina" style="padding-top:90px">
+      <p class="eyebrow">Experiência exclusiva</p>
+      <h2>Agende seu <span>test-drive</span></h2>
+      <p>Escolha o carro e veja as opções disponíveis para ele. Nossa equipe confirma em até 2 horas.</p>
+    </div>
+
+    <div class="td">
+      <aside class="td-visual">
+        <div class="td-foto" id="foto">Escolha um carro para ver a foto</div>
+        <div class="td-info" id="info"></div>
+      </aside>
+
+      <form id="form" class="td-form sem-carro">
+        <div class="passo">
+          <h4><b>01</b>Carro</h4>
+          <select name="carro" id="carroSel" required></select>
+        </div>
+        <div class="passo dep">
+          <h4><b>02</b>Tipo de test-drive</h4>
+          <div class="chips" id="testes"></div>
+        </div>
+        <div class="passo dep">
+          <h4><b>03</b>Cor disponível</h4>
+          <div class="chips" id="cores"></div>
+        </div>
+        <div class="passo dep">
+          <h4><b>04</b>Data e horário</h4>
+          <input type="date" name="data" id="data" required>
+          <div class="chips" id="horarios" style="margin-top:12px"></div>
+        </div>
+        <div class="passo dep">
+          <h4><b>05</b>Seus dados</h4>
+          <div class="dupla">
+            <input name="nome" placeholder="Seu nome" required>
+            <input name="telefone" type="tel" placeholder="WhatsApp" required>
+          </div>
+          <textarea name="mensagem" rows="3" placeholder="Mensagem (opcional)" style="margin-top:14px"></textarea>
+        </div>
+        <button class="btn" type="submit">Confirmar agendamento</button>
         <p id="status"></p>
       </form>
     </div>

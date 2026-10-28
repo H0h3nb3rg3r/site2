@@ -1,9 +1,8 @@
-import { db } from "./firebase.js";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { carregarCarros, cardHTML, irParaCarro } from "./dados.js";
+import { iniciarTestDrive } from "./testdrive-form.js";
 
 const $ = (s) => document.querySelector(s);
-let cars = [];
+let cars = [], td = null;
 
 // Loader
 addEventListener("load", () => setTimeout(() => $("#loader").classList.add("done"), 1300));
@@ -64,43 +63,20 @@ function render() {
   const pos = (c) => (ORDEM_DESTAQUES.includes(c.id) ? ORDEM_DESTAQUES.indexOf(c.id) : 99);
   const destaques = cars.filter((c) => c.destaque).sort((a, b) => pos(a) - pos(b));
   $("#grid").innerHTML = (destaques.length ? destaques : cars.slice(0, 4)).map((c) => cardHTML(c, true)).join("");
-  $("#carroSel").innerHTML = `<option value="">Escolha o carro</option>` + cars.map((c) => `<option>${c.nome}</option>`).join("");
   tilt();
   observeAll();
 }
 
-// Card abre a página do carro; "Test-drive →" pré-seleciona no formulário
+// Card abre a página do carro; "Test-drive →" escolhe o carro no formulário
 irParaCarro("#grid");
 $("#grid").addEventListener("click", (e) => {
   const a = e.target.closest("[data-car]");
-  if (a) $("#carroSel").value = a.dataset.car;
-});
-
-// Firestore: salva agendamentos na coleção "agendamentos"
-$("#form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const st = $("#status"), btn = e.target.querySelector("button");
-  btn.disabled = true;
-  st.style.color = "";
-  st.textContent = "Enviando...";
-  try {
-    await addDoc(collection(db, "agendamentos"), {
-      ...Object.fromEntries(new FormData(e.target)),
-      criadoEm: serverTimestamp(),
-    });
-    st.style.color = "#4ade80";
-    st.textContent = "Test-drive agendado! Entraremos em contato em breve.";
-    e.target.reset();
-  } catch (err) {
-    st.style.color = "#ff2a3d";
-    st.textContent = "Erro ao enviar. Tente novamente.";
-    console.error(err);
-  }
-  btn.disabled = false;
+  if (a && td) td.escolher(a.dataset.car);
 });
 
 observeAll();
 carregarCarros().then((lista) => {
   cars = lista;
   render();
+  td = iniciarTestDrive(cars);
 });
