@@ -3,6 +3,7 @@ import { carregarCarros, brl } from "./dados.js";
 import { LOJA, SINAL, FRETE } from "./loja.js";
 import { db } from "./firebase.js";
 import { uidAtual, ligarContaAoForm } from "./auth.js";
+import { avisarLoja } from "./notificar.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const $ = (s) => document.querySelector(s);
@@ -92,6 +93,30 @@ $("#form").addEventListener("submit", async (e) => {
       ...(uidAtual() ? { uid: uidAtual() } : {}),
       criadoEm: serverTimestamp(),
     });
+
+    const codigo = ref.id.slice(0, 8).toUpperCase();
+
+    // Aviso por e-mail para a loja (não espera a resposta). O CPF fica só no Firestore.
+    avisarLoja(`Novo pedido ${codigo}: ${car.nome} - ${f.nome}`, [
+      ["Código do pedido", codigo],
+      ["Carro", car.nome],
+      ["Cor", sel.cor],
+      ["Valor do veículo", brl(car.preco)],
+      ["Recebimento", sel.entrega === "casa" ? "Entrega em casa" : "Retirada na loja"],
+      ["Retirada", sel.entrega === "retirada" ? `${f.data.split("-").reverse().join("/")} às ${sel.horario}` : ""],
+      ["Endereço de entrega", sel.entrega === "casa" ? `${f.endereco}, ${f.cidade}, CEP ${f.cep}` : ""],
+      ["Frete", sel.entrega === "casa" ? brl(frete) : ""],
+      ["Total do pedido", brl(car.preco + frete)],
+      ["Sinal de reserva", brl(Math.round(car.preco * SINAL))],
+      ["Forma de pagamento", sel.pagamento],
+      ["Nome", f.nome],
+      ["E-mail", f.email],
+      ["WhatsApp", f.telefone],
+      ["Observações", f.observacoes],
+      ["Cliente com conta", uidAtual() ? "Sim" : "Não"],
+      ["Aviso", "O CPF está salvo no Firestore (coleção pedidos), não vai por e-mail."],
+    ]);
+
     const proximo = sel.entrega === "retirada"
       ? `Sua retirada está marcada para ${f.data.split("-").reverse().join("/")} às ${sel.horario}, na ${LOJA.endereco}.`
       : "Entraremos em contato para combinar a data da entrega no seu endereço.";
@@ -102,7 +127,7 @@ $("#form").addEventListener("submit", async (e) => {
       <div class="pedido-ok">
         <div class="selo">✓</div>
         <h2>Pedido recebido!</h2>
-        <div class="codigo">${ref.id.slice(0, 8).toUpperCase()}</div>
+        <div class="codigo">${codigo}</div>
         <p>${proximo} Em até 2 horas nossa equipe envia os dados seguros para o pagamento do sinal.</p>
         <div class="cta">
           ${conta}

@@ -1,6 +1,7 @@
 import { brl } from "./dados.js";
 import { db } from "./firebase.js";
 import { uidAtual, ligarContaAoForm } from "./auth.js";
+import { avisarLoja } from "./notificar.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const $ = (s) => document.querySelector(s);
@@ -80,6 +81,20 @@ export function iniciarTestDrive(cars) {
         ...(uidAtual() ? { uid: uidAtual() } : {}),
         criadoEm: serverTimestamp(),
       });
+
+      // Aviso por e-mail para a loja (não espera a resposta)
+      avisarLoja(`Novo test-drive: ${car.nome} - ${f.nome}`, [
+        ["Carro", car.nome],
+        ["Tipo de test-drive", sel.teste],
+        ["Cor", sel.cor],
+        ["Data", f.data.split("-").reverse().join("/")],
+        ["Horário", sel.horario],
+        ["Nome", f.nome],
+        ["WhatsApp", f.telefone],
+        ["Mensagem", f.mensagem],
+        ["Cliente com conta", uidAtual() ? "Sim" : "Não"],
+      ]);
+
       st.style.color = "#4ade80";
       st.textContent = uidAtual()
         ? "Test-drive agendado! Ele já está na sua conta."
